@@ -12,6 +12,7 @@ type Config struct {
 	Language     string `yaml:"language"`
 	Timeout      int    `yaml:"timeout"`
 	OutputFormat string `yaml:"output_format"`
+	Delay        int    `yaml:"delay"`
 }
 
 func Load(path string) (*Config, error) {

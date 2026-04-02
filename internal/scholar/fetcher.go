@@ -5,20 +5,25 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 // Fetcher handles fetching citation data from Google Scholar
 type Fetcher struct {
 	client *Client
+	delay  time.Duration
 }
 
 // NewFetcher creates a new Fetcher
-func NewFetcher(client *Client) *Fetcher {
-	return &Fetcher{client: client}
+func NewFetcher(client *Client, delaySec int) *Fetcher {
+	return &Fetcher{client: client, delay: time.Duration(delaySec) * time.Second}
 }
 
 // FetchSearchResults fetches the Google Scholar search results HTML
 func (f *Fetcher) FetchSearchResults(query string) (string, error) {
+	if f.delay > 0 {
+		time.Sleep(f.delay)
+	}
 	baseURL := "https://scholar.google.com/scholar"
 	params := url.Values{
 		"hl":     {f.client.Language()},

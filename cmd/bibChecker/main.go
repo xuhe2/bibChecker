@@ -83,7 +83,7 @@ func runSearch(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("failed to create client: %w", err)
 	}
 
-	fetcher := scholar.NewFetcher(client)
+	fetcher := scholar.NewFetcher(client, cfg.Delay)
 
 	query := strings.Join(args, " ")
 	fmt.Printf("Searching: %s\n", query)
@@ -142,7 +142,7 @@ func runUpdate(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("failed to create client: %w", err)
 	}
 
-	fetcher := scholar.NewFetcher(client)
+	fetcher := scholar.NewFetcher(client, cfg.Delay)
 	bibParser := bibtex.NewParser()
 
 	// Parse input BibTeX file
