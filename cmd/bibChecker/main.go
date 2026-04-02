@@ -156,7 +156,7 @@ func runUpdate(cmd *cobra.Command, args []string) error {
 
 	var results []string
 	for i, entry := range entries {
-		fmt.Printf("[%d/%d] Processing: %s\n", i+1, len(entries), entry.Title)
+		fmt.Printf("[%d/%d] %s\n", i+1, len(entries), entry.Title)
 
 		if entry.Title == "" {
 			fmt.Printf("  Warning: No title found, keeping original\n")
