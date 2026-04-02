@@ -1,5 +1,6 @@
-proxy: "http://127.0.0.1:7890"
+proxy: ""
 language: "zh-CN"
 timeout: 30
 output_format: "bibtex"
 delay: 3
+cookie: ""
