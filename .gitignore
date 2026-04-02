@@ -1,5 +1,5 @@
 # Build artifacts
-bibChecker
+/bibChecker
 
 # Config with sensitive data
 config.yaml
