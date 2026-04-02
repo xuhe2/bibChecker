@@ -78,7 +78,7 @@ func runSearch(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("failed to load config: %w", err)
 	}
 
-	client, err := scholar.NewClient(cfg.Proxy, cfg.Language, cfg.Timeout)
+	client, err := scholar.NewClient(cfg.Proxy, cfg.Language, cfg.Timeout, cfg.Cookie)
 	if err != nil {
 		return fmt.Errorf("failed to create client: %w", err)
 	}
@@ -137,7 +137,7 @@ func runUpdate(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("failed to load config: %w", err)
 	}
 
-	client, err := scholar.NewClient(cfg.Proxy, cfg.Language, cfg.Timeout)
+	client, err := scholar.NewClient(cfg.Proxy, cfg.Language, cfg.Timeout, cfg.Cookie)
 	if err != nil {
 		return fmt.Errorf("failed to create client: %w", err)
 	}

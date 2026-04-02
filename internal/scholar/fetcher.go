@@ -3,6 +3,7 @@ package scholar
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -30,13 +31,13 @@ func (f *Fetcher) FetchSearchResults(query string) (string, error) {
 		"as_sdt": {"0,5"},
 		"q":      {query},
 	}
+	fullURL := baseURL + "?" + params.Encode()
+	log.Printf("[Fetch] %s", fullURL)
 
 	req, err := http.NewRequest("GET", baseURL+"?"+params.Encode(), nil)
 	if err != nil {
 		return "", fmt.Errorf("failed to create request: %w", err)
 	}
-
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
 	resp, err := f.client.Do(req)
 	if err != nil {
@@ -60,8 +61,6 @@ func (f *Fetcher) FetchCitePage(paperID string) (string, *Signature, error) {
 	if err != nil {
 		return "", nil, fmt.Errorf("failed to create request: %w", err)
 	}
-
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
 
 	resp, err := f.client.Do(req)
 	if err != nil {
@@ -98,8 +97,6 @@ func (f *Fetcher) FetchCitation(paperID string, format CitationFormat) (string, 
 		return "", fmt.Errorf("failed to create request: %w", err)
 	}
 
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-
 	resp, err := f.client.Do(req)
 	if err != nil {
 		return "", fmt.Errorf("request failed: %w", err)
@@ -122,8 +119,6 @@ func (f *Fetcher) FetchAllCitations(paperID string) (*CitationLinks, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
-
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
 
 	resp, err := f.client.Do(req)
 	if err != nil {

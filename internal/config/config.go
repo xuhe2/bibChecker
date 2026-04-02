@@ -13,6 +13,7 @@ type Config struct {
 	Timeout      int    `yaml:"timeout"`
 	OutputFormat string `yaml:"output_format"`
 	Delay        int    `yaml:"delay"`
+	Cookie       string `yaml:"cookie"`
 }
 
 func Load(path string) (*Config, error) {
