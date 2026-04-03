@@ -4,3 +4,4 @@ timeout: 30
 output_format: "bibtex"
 delay: 3
 cookie: ""
+crossref_mailto: ""

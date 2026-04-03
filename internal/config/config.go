@@ -8,12 +8,13 @@ import (
 )
 
 type Config struct {
-	Proxy        string `yaml:"proxy"`
-	Language     string `yaml:"language"`
-	Timeout      int    `yaml:"timeout"`
-	OutputFormat string `yaml:"output_format"`
-	Delay        int    `yaml:"delay"`
-	Cookie       string `yaml:"cookie"`
+	Proxy         string `yaml:"proxy"`
+	Language      string `yaml:"language"`
+	Timeout       int    `yaml:"timeout"`
+	OutputFormat  string `yaml:"output_format"`
+	Delay         int    `yaml:"delay"`
+	Cookie        string `yaml:"cookie"`
+	CrossRefMailto string `yaml:"crossref_mailto"`
 }
 
 func Load(path string) (*Config, error) {

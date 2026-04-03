@@ -2,6 +2,8 @@ package formatter
 
 import (
 	"strings"
+
+	"bibChecker/internal/paper"
 )
 
 // FormatBibTeX formats a BibTeX entry
@@ -28,4 +30,18 @@ func JoinEntries(entries []string) string {
 		}
 	}
 	return strings.Join(result, "\n\n")
+}
+
+// FormatPaper formats a Paper as BibTeX entry
+func FormatPaper(p *paper.Paper) string {
+	return p.ToBibTeX()
+}
+
+// JoinPapers joins multiple Papers as BibTeX entries
+func JoinPapers(papers []*paper.Paper) string {
+	var entries []string
+	for _, p := range papers {
+		entries = append(entries, p.ToBibTeX())
+	}
+	return JoinEntries(entries)
 }
