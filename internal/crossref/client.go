@@ -34,7 +34,7 @@ func (c *Client) Search(ctx context.Context, query string, rows int) (*SearchRes
 	}
 
 	params := url.Values{}
-	params.Set("query", query)
+	params.Set("query.title", query)
 	params.Set("rows", fmt.Sprintf("%d", rows))
 
 	if c.mailto != "" {

@@ -157,7 +157,7 @@ func runUpdate(cmd *cobra.Command, args []string) error {
 		}
 
 		// Search for the paper on CrossRef
-		result, err := fetcher.SearchFirst(ctx, entry.Title)
+		result, err := fetcher.SearchBestMatch(ctx, entry.Title)
 		if err != nil {
 			fmt.Printf("  Warning: search failed: %v\n", err)
 			results = append(results, entry.RawContent)

@@ -78,3 +78,34 @@ func (f *Fetcher) SearchFirst(ctx context.Context, query string) (*SearchResult,
 
 	return &results[0], nil
 }
+
+// SearchBestMatch searches for papers and returns the best match based on title similarity
+func (f *Fetcher) SearchBestMatch(ctx context.Context, query string) (*SearchResult, error) {
+	results, err := f.Search(ctx, query)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(results) == 0 {
+		return nil, fmt.Errorf("no results found for query: %s", query)
+	}
+
+	bestScore := -1.0
+	bestIndex := 0
+
+	for i, result := range results {
+		score := ScoreTitleSimilarity(query, result.Title)
+		if score > bestScore {
+			bestScore = score
+			bestIndex = i
+		}
+	}
+
+	// Threshold: only return if similarity is above 0.88
+	// Use higher threshold to avoid false matches when CrossRef has incomplete data
+	if bestScore < 0.88 {
+		return nil, fmt.Errorf("no sufficiently similar result found (best score: %.2f)", bestScore)
+	}
+
+	return &results[bestIndex], nil
+}
