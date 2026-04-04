@@ -35,6 +35,21 @@ class BibTeXFetcher:
             logger.error(f"搜索出错 [{title}]: {e}")
             return None
 
+    def search_by_query(self, query: str, num: int = 5) -> list[str]:
+        """通过关键词搜索 Google Scholar，返回多条 BibTeX"""
+        results = []
+        try:
+            search_results = scholarly.search_pubs(query)
+            for i, result in enumerate(search_results):
+                if i >= num:
+                    break
+                bibtex = scholarly.bibtex(result)
+                results.append(bibtex)
+                time.sleep(self.config.delay)
+        except Exception as e:
+            logger.error(f"搜索出错 [{query}]: {e}")
+        return results
+
     def fetch_batch(self, titles: list[str]) -> list[tuple[str, str | None]]:
         """批量获取 BibTeX"""
         results = []
